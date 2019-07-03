@@ -1,0 +1,26 @@
+<html>
+  <head> </head>
+  <body>
+    <div class="list">
+      <div class="container">
+        <h1>Employeer</h1>
+
+        <div>
+          {% for employeer in employeer %}
+
+          <h3>
+            <a href=" {% url 'employeer:employeer_detail' employeer.id %} ">
+              {{ employeer.first_name }}
+            </a>
+          </h3>
+
+          <button>
+            <a href="{% url 'employees:employees_list' %}">Employees List</a>
+          </button>
+
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

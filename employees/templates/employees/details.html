@@ -1,0 +1,106 @@
+{% extends 'employees/base.html' %} {% block content %}
+<div class="details">
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        {% if employees_detail.pic %}
+        <img src="{{ employees_detail.pic.url }}" alt="profile">
+        
+        {% endif %}
+      </div>
+      <div class="col-6">
+        <table>
+          <tr>
+            <th>Name</th>
+            <td>:</td>
+            <td>
+              {% if employees_detail.middle_name %}
+              {{ employees_detail.first_name }}
+              {{ employees_detail.middle_name }}
+              {{ employees_detail.last_name }}
+
+              {% else %}  {{ employees_detail.first_name }}
+              {{ employees_detail.last_name }}
+
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>:</td>
+            <td>{{ employees_detail.email }}</td>
+          </tr>
+          <tr>
+            <th>Phone</th>
+            <td>:</td>
+            <td>{{ employees_detail.phone }}</td>
+          </tr>
+          <tr>
+            <th>Qualifications</th>
+            <td>:</td>
+            <td>{{ employees_detail.qualification }}</td>
+          </tr>
+          <tr>
+            <th>Projects</th>
+            <td>:</td>
+            <td>{{ employees_detail.projects }}</td>
+          </tr>
+          <tr>
+            <th>About </th>
+            <td>:</td>
+            <td>{{ employees_detail.about|linebreaks }}</td>
+          </tr>
+          <tr>
+            <td>
+              <button type="button" value="update" class="btn btn-secondary">
+                <a
+                  href="{% url 'employees:edit' employees_detail.id %}"
+                  class="link"
+                  >Edit Profile</a
+                >
+              </button>
+            </td>
+            <td></td>
+            <td>
+              <button type="button" value="update" class="btn btn-danger">
+                <a
+                  href="{% url 'employees:remove' employees_detail.id %}"
+                  class="link"
+                  >Delete Profile</a
+                >
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-3">
+        <table class="table table-borderless">
+          <tr>
+            <th>Field</th>
+            <th>Years</th>
+          </tr>
+
+          {% for exp in experience %}
+          <tr>
+            <td>{{ exp.experience_fields }}</td>
+            <td>{{ exp.experience_years }}</td>
+          </tr>
+
+          {% endfor %}
+        </table>
+
+        <!-- <button type="button" value="update" class="btn btn-secondary">
+          <a href="{% url 'employees:experience' employees_detail.id %}" class="link"
+            >Update Experience</a
+          >
+        </button> -->
+      </div>
+    </div>
+    <div class="row">
+      
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'employees/base.html' %} {% block content %} {% load bootstrap4 %}
+<div class="exp container">
+  <form action="#" method="POST">
+    
+    {% csrf_token %}
+    <table class="table">
+      <tr>
+        <th>Field</th>
+        <td>:</td>
+        <td>{% bootstrap_field form.experience_fields show_label=False %}</td>
+      </tr>
+      <tr>
+        <th>Years</th>
+        <td>:</td>
+        <td>{% bootstrap_field form.experience_years show_label=False %}</td>
+      </tr>
+    </table>
+
+    <input type="submit" value="Submit" class="btn btn-success" />
+  </form>
+</div>
+{% endblock %}

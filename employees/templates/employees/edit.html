@@ -1,0 +1,102 @@
+{% extends 'employees/base.html' %} {% block content %} {% load static %} {% load bootstrap4 %}
+<div class="edit">
+  <div class="container">
+  
+    <form action="#" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="row"><div class="col-8">
+      <table>
+        <tr>
+          <th>Name </th><th>:</th>
+          <td>{% bootstrap_field form.first_name show_label=False %}</td>
+          <td>{% bootstrap_field form.middle_name show_label=False %}</td>
+          <td>{% bootstrap_field form.last_name show_label=False %}</td>
+        </tr>
+        <tr>
+          <th>Email </th><th>:</th>
+          <td colspan="3">{% bootstrap_field form.email show_label=False %}</td>
+        </tr>
+        <tr>
+          <th>Phone No. </th><th>:</th>
+          <td colspan="3">{% bootstrap_field form.phone show_label=False %}</td>
+        </tr>
+        <tr>
+          <th>Education </th><th>:</th>
+          <td colspan="3">
+            {% bootstrap_field form.qualification show_label=False %}
+          </td>
+        </tr>
+        <tr>
+          <th>Slug </th><th>:</th>
+          <td colspan="3">{% bootstrap_field form.slug show_label=False %}</td>
+        </tr>
+        <tr>
+          <th>Projects </th><th>:</th>
+          <td colspan="3">
+            {% bootstrap_field form.projects show_label=False %}
+          </td>
+        </tr>
+        <tr>
+          <th>About </th><th>:</th>
+          <td colspan="3" rowspan=>{% bootstrap_field form.about show_label=False %}</td>
+        </tr>
+        <tr>
+          <th>Image</th><th>:</th>
+          <td>{% bootstrap_field form.pic show_label=False %}</td>
+        </tr>
+      </table>
+    </div><div class="col-4">
+
+     <div class="hide">{{ expform.as_p }}</div>
+      
+      <table>
+        <tr>
+        <th>Fields</th>
+        <th>Years</th>
+        <th>Del</th>
+        </tr>
+        {% for field in expform %}
+        <tr>
+          <td>{% bootstrap_field field.experience_fields show_label=False %}</td>
+          <td>{% bootstrap_field field.experience_years show_label=False %}</td>
+          <td><input type="checkbox" name="experience_set-{{ forloop.counter0 }}-DELETE" id="id_experience_set-{{ forloop.counter0 }}-DELETE"></td>
+        </tr>
+        {% endfor %}
+      </table>
+    
+        
+        
+      
+      {% for field in expform.visible_fields %}
+                        <td>
+                            {# Include the hidden fields in the expform #}
+                            {% if forloop.first %}
+                                {% for hidden in expform.hidden_fields %}
+                                    {{ hidden }}
+                                {% endfor %}
+                            {% endif %}
+                            {{ field.errors.as_ul }}
+                            {{ field }}
+                        </td>
+                    {% endfor %}
+      
+      <input type="submit" value="Update" class="btn btn-success" />
+      <a href="{{ request.META.HTTP_REFERER }}">Back</a>
+    </div></div>
+    </form>
+
+  
+  </div>
+</div>
+
+{% endblock %}
+<script src="{% static 'js/jquery.formset.js' %}"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".formset_row").formset({
+      addText: "Add Field",
+      deleteText: "Delete",
+      prefix: "experience"
+    });
+  });
+</script>

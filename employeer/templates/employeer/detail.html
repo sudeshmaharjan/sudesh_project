@@ -1,0 +1,29 @@
+<html>
+  <head> </head>
+  <body>
+    <div class="details">
+      <div class="container">
+        <table>
+          <tr>
+            <th>Name:</th>
+            <td>
+              {{ employeer_detail.first_name }} {{ employeer_detail.last_name }}
+            </td>
+          </tr>
+          <tr>
+            <th>Email:</th>
+            <td>{{ employeer_detail.email }}</td>
+          </tr>
+          <tr>
+            <th>Phone:</th>
+            <td>{{ employeer_detail.phone }}</td>
+          </tr>
+        </table>
+
+        <button>
+          <a href="{% url 'employeer:edit' employeer_detail.id %}">Edit</a>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+{% extends 'employees/base.html' %} {% block content %} {% load bootstrap4 %}
+<div class="new">
+  <div class="container">
+    <form action="#" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <th>Name :</th>
+          <td>{% bootstrap_field form.first_name show_label=False %}</td>
+          <td>{% bootstrap_field form.middle_name show_label=False %}</td>
+          <td>{% bootstrap_field form.last_name show_label=False %}</td>
+        </tr>
+        <tr>
+          <th>Email :</th>
+          <td colspan="3">{% bootstrap_field form.email show_label=False %}</td>
+        </tr>
+        <tr>
+          <th>Phone No. :</th>
+          <td colspan="3">{% bootstrap_field form.phone show_label=False %}</td>
+        </tr>
+        <tr>
+          <th>Qualifications :</th>
+          <td colspan="3">
+            {% bootstrap_field form.qualification show_label=False %}
+          </td>
+        </tr>
+        <tr>
+          <th>Slug :</th>
+          <td colspan="3">{% bootstrap_field form.slug show_label=False %}</td>
+        </tr>
+        <tr>
+          <th>Projects :</th>
+          <td colspan="3">
+            {% bootstrap_field form.projects show_label=False %}
+          </td>
+        </tr>
+        <tr>
+          <th>About :</th>
+          <td colspan="3">{% bootstrap_field form.about show_label=False %}</td>
+        </tr>
+        <tr>
+          <th>Image:</th>
+          <td>{% bootstrap_field form.pic show_label=False %}</td>
+        </tr>
+      </table>
+
+      <input type="submit" value="Submit" class="btn btn-success" />
+    </form>
+  </div>
+</div>
+{% endblock %}

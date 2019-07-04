@@ -1,8 +1,8 @@
 from django.shortcuts import render, HttpResponseRedirect
-from .models import Employee, Experience
+from .models import Employee, Experience, Projects
 from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy, reverse
-from .forms import EmployeeAddForm, AddExperience, ExperienceFormSet
+from .forms import EmployeeAddForm, AddExperience, ExperienceFormSet, AddProject
 from django.views.generic.edit import DeleteView, FormView, UpdateView
 from django.db import transaction
 
@@ -94,19 +94,19 @@ class EmployeeExperience(FormView):
         return super(EmployeeExperience, self).form_valid(form)
 
 
-# class EmployeeProjects(FormView):
-#     model = Projects
-#     template_name = 'employees/project.html'
-#     form_class = AddProject
+class EmployeeProjects(FormView):
+    model = Projects
+    template_name = 'employees/project.html'
+    form_class = AddProject
 
-#     def get_success_url(self):
-#         return reverse_lazy('employees:employees_detail', args=(self.kwargs['pk'],))
+    def get_success_url(self):
+        return reverse_lazy('employees:employees_detail', args=(self.kwargs['pk'],))
 
-#     def form_valid(self, form):
-#         pro = form.save(commit=False)
-#         pro.employee_id = Employee.objects.get(id=self.kwargs['pk'])
-#         pro.save()
-#         return super(EmployeeProjects, self).form_valid(form)
+    def form_valid(self, form):
+        pro = form.save(commit=False)
+        pro.employee_id = Employee.objects.get(id=self.kwargs['pk'])
+        pro.save()
+        return super(EmployeeProjects, self).form_valid(form)
 
 
 class EmployeeDelete(DeleteView):

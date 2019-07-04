@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 class Employee(models.Model):
     first_name = models.CharField(max_length=255)
@@ -25,9 +26,12 @@ class Experience(models.Model):
         db_table = 'experience'
 
 
-class Project_em(models.Model):
+class Projects(models.Model):
     project_title = models.CharField(max_length=255)
     client_name = models.CharField(max_length=255)
     project_description = models.FileField(upload_to="projects")
     project_begin = models.DateField()
-    # employee_id = models.ForeignKey(Employee, related_name="project", on_delete=models.CASCADE, blank=True, null=True)
+    employee_id = models.ForeignKey(Employee, related_name="project", on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        db_table = 'employees_projects'

@@ -76,6 +76,10 @@
       <button type="submit" name="btn_update" class="btn btn-block btn-success">Save and continue</button>
       <button type="submit" name="btn_exit" class="btn btn-block btn-success">Save and exit</button>
       <a href="{{ request.META.HTTP_REFERER }}">Back</a>
+      <a
+          href=" {% url 'employees:employees_detail' employees.id %} "
+          class="link"
+        >Back</a>
     </div></div>
     </form>
 

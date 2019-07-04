@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Employee, Experience
+from .models import Employee, Experience, Projects
 from django.forms.models import inlineformset_factory
 from django import forms
 
@@ -35,8 +35,8 @@ class AddExperience(ModelForm):
 
 ExperienceFormSet = inlineformset_factory(Employee, Experience, form=AddExperience, extra=1)
 
-# class AddProject(ModelForm):
-#     class Meta:
-#         model = Projects
-#         # fields = '__all__'
-#         exclude = ('employee_id',)
+class AddProject(ModelForm):
+    class Meta:
+        model = Projects
+        # fields = '__all__'
+        exclude = ('employee_id',)

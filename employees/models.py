@@ -21,6 +21,9 @@ class Experience(models.Model):
     experience_years = models.IntegerField()
     employee_id = models.ForeignKey(Employee, on_delete=models.CASCADE, blank=True, null=True)
 
+    class Meta:
+        db_table = 'experience'
+
 
 class Project_em(models.Model):
     project_title = models.CharField(max_length=255)

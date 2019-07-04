@@ -41,7 +41,10 @@ class EmployeeUpdate(UpdateView):
     form_class = EmployeeAddForm
 
     def get_success_url(self):
-        return reverse_lazy('employees:employees_detail', args=(self.object.id,))
+        if self.request.method=='POST' and 'btn_exit' in self.request.POST:
+            return reverse_lazy('employees:employees_detail', args=(self.object.id,))
+        if self.request.method == 'POST' and 'btn_update' in self.request.POST:
+            return reverse_lazy('employees:edit', args=(self.object.id,))
 
     def get_context_data(self, **kwargs):
         context = super(EmployeeUpdate, self).get_context_data(**kwargs)

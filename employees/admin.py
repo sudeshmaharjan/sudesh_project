@@ -15,7 +15,6 @@ class EmployeeAdmin(admin.ModelAdmin):
         ExperienceInline,
         ProjectInline,
     ]
-    prepopulated_fields = {"slug": ("first_name",)}
-
+    
 
 admin.site.register(Employee, EmployeeAdmin)

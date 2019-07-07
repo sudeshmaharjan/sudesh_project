@@ -1,0 +1,79 @@
+.link {
+  color: #789467;
+  font-family: cursive;
+  text-decoration: none;
+}
+
+.btn .link {
+  color: #ffeedd;
+}
+
+.btn .link:hover {
+  color: #ffaafa;
+}
+
+.link:hover {
+  color: #7ec445;
+  text-decoration: none;
+}
+
+h1 {
+  font-family: cursive;
+}
+
+.remove {
+  background-image: url("./images/81391.jpg");
+}
+
+.remove spam {
+  color: #7ec445;
+}
+
+.remove h1 {
+  text-align: center;
+  color: red;
+}
+
+.details {
+  background-image: url("./images/owl-517497_960_720.jpg");
+}
+
+.edit {
+  background-image: url("./images/290302.jpg");
+ 
+  padding-top: 20px;
+}
+
+.new {
+  background-image: url("./images/fantasy-wallpapers-28113-6540419.jpg");
+  height: 100%;
+}
+
+table.mytable {
+  color: #ffffef;
+  font-size: 15px;
+}
+
+.details,
+.remove {
+  color: cornsilk;
+  height: 100%;
+  font-size: 30px;
+  text-align: center;
+  padding: 50px;
+}
+
+img{
+  height: 200px;
+  width: 200px;
+}
+
+.exp{
+  background-color: black;
+  margin: auto;
+  padding: auto;
+}
+
+.hide{
+  display: none;
+}

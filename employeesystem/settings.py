@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'employees',
     'employeer',
     'bootstrap4',
+    'bootstrap_datepicker_plus',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}

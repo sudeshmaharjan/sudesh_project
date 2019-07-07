@@ -1,7 +1,9 @@
 from django.forms import ModelForm
 from .models import Employee, Experience, Projects
 from django.forms.models import inlineformset_factory
+from bootstrap_datepicker_plus import DatePickerInput
 from django import forms
+
 
 
 class EmployeeAddForm(ModelForm):
@@ -40,3 +42,8 @@ class AddProject(ModelForm):
         model = Projects
         # fields = '__all__'
         exclude = ('employee_id',)
+        widgets = {
+            'project_begin': DatePickerInput(format='%Y-%m-%d'), # specify date-frmat
+        }
+
+

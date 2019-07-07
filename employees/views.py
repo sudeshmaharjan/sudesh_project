@@ -1,10 +1,11 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from .models import Employee, Experience, Projects
 from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy, reverse
 from .forms import EmployeeAddForm, AddExperience, ExperienceFormSet, AddProject
 from django.views.generic.edit import DeleteView, FormView, UpdateView
 from django.db import transaction
+from django.conf import settings
 
 
 class EmployeeList(ListView):
@@ -21,6 +22,7 @@ class EmployeeDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(EmployeeDetail, self).get_context_data(**kwargs)
         context['experience'] = Experience.objects.filter(employee_id=self.object.id)
+        context['projects'] = Projects.objects.filter(employee_id=self.object.id)
         return context
 
 
@@ -113,3 +115,14 @@ class EmployeeDelete(DeleteView):
     model = Employee
     success_url = reverse_lazy('employees:employees_list')
     template_name = 'employees/remove.html'
+
+
+# class DownloadView(EmployeeDetail):
+
+#     def dispatch(self, request, *args, **kwargs):
+#         super(DownloadView, self).dispatch(request, *args, **kwargs)
+#         file_name = 'test.pdf'
+#         response = HttpResponse(content_type='text/pdf')
+#         response['X-Sendfile'] = str(settings.MEDIA_ROOT)
+#         response['Content-Disposition'] = 'attachment; filename=%s' % file_name
+#         return response

@@ -3,7 +3,7 @@
   <div class="container">
     <form action="#" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-      <table>
+      <table class="mytable">
         <tr>
           <th>Name :</th>
           <td>{% bootstrap_field form.first_name show_label=False %}</td>
@@ -22,16 +22,6 @@
           <th>Qualifications :</th>
           <td colspan="3">
             {% bootstrap_field form.qualification show_label=False %}
-          </td>
-        </tr>
-        <tr>
-          <th>Slug :</th>
-          <td colspan="3">{% bootstrap_field form.slug show_label=False %}</td>
-        </tr>
-        <tr>
-          <th>Projects :</th>
-          <td colspan="3">
-            {% bootstrap_field form.projects show_label=False %}
           </td>
         </tr>
         <tr>

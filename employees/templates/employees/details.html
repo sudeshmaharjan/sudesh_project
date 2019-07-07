@@ -1,4 +1,6 @@
 {% extends 'employees/base.html' %} {% block content %}
+
+
 <div class="details">
   <div class="container">
     <div class="row">
@@ -9,7 +11,7 @@
         {% endif %}
       </div>
       <div class="col-6">
-        <table>
+        <table class="mytable">
           <tr>
             <th>Name</th>
             <td>:</td>
@@ -36,14 +38,9 @@
             <td>{{ employees_detail.phone }}</td>
           </tr>
           <tr>
-            <th>Qualifications</th>
+            <th>Education</th>
             <td>:</td>
             <td>{{ employees_detail.qualification }}</td>
-          </tr>
-          <tr>
-            <th>Projects</th>
-            <td>:</td>
-            <td>{{ employees_detail.projects }}</td>
           </tr>
           <tr>
             <th>About </th>
@@ -74,7 +71,7 @@
         </table>
       </div>
       <div class="col-3">
-        <table class="table table-borderless">
+        <table class="table mytable table-borderless">
           <tr>
             <th>Field</th>
             <th>Years</th>
@@ -97,16 +94,32 @@
       </div>
     </div>
     <div class="row">
+        
+          
+      <h1>Projects</h1>
+        <table class="mytable table">
+          <tr><th>Title</th><th>Client Name</th><th>Project Description</th><th>Start Date</th><th>Delete</th></tr>
+
+          {% for project in projects %}
+            <tr>
+              <td>{{ project.project_title }}</td>
+              <td>{{ project.client_name }}</td>
+              <td>{% if project.project_description %} <a href="{{ project.project_description.url }}" target="_blank" class="link"> Project Description <i class="fa fa-file-pdf-o" style="font-size:20px;color:red"></i> </a>  {% else %} No Description Given {% endif %} </td>
+              <td>{{ project.project_begin }}</td>
+              <td><i class="fa fa-trash-o"></i></td>
+            </tr>
+          {% endfor %}
+        </table>
+
+          
         <button type="button" value="update" class="btn btn-danger">
             <a
               href="{% url 'employees:projects' employees_detail.id %}"
               class="link"
-              >Projects</a
+              >Manage Projects</a
             >
           </button>
-
     </div>
   </div>
 </div>
-
 {% endblock %}

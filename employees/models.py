@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import FileExtensionValidator
 import datetime
 
 class Employee(models.Model):
@@ -8,8 +9,6 @@ class Employee(models.Model):
     email = models.EmailField()
     phone = models.BigIntegerField()
     qualification = models.CharField(max_length=255)
-    slug = models.SlugField(null=True)
-    projects = models.CharField(max_length=255, blank=True, null=True)
     about = models.TextField(max_length=500, blank=True, default='N/A')
     pic = models.ImageField(max_length=255, blank=True, null=True, upload_to='profile')
 
@@ -29,7 +28,7 @@ class Experience(models.Model):
 class Projects(models.Model):
     project_title = models.CharField(max_length=255)
     client_name = models.CharField(max_length=255)
-    project_description = models.FileField(upload_to="projects")
+    project_description = models.FileField(blank=True, null=True, upload_to="projects", validators=[FileExtensionValidator(allowed_extensions=['pdf'])])
     project_begin = models.DateField()
     employee_id = models.ForeignKey(Employee, related_name="project", on_delete=models.CASCADE, blank=True, null=True)
 

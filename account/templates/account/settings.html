@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load i18n bootstrap3 %}
+
+{% block body_class %}account account-settings{% endblock %}
+
+{% block head_title %}{% trans "Account" %}{% endblock %}
+
+{% block content %}
+<div class="container content">
+    <div class="row">
+    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+        <form method="POST" action="" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %} class="reg-page" novalidate>
+            <div class="reg-header">
+                <h2>{% trans "Account" %}</h2>
+            </div>
+
+            {%  if new_email_address %}<p>{%  trans 'New Email Address:' %} {{ new_email_address }} - {%  trans 'Not verified' %}</p> {% endif %}
+                {% csrf_token %}
+                {% bootstrap_form form show_label=False %}
+                <button type="submit" class="btn-u submit">
+                    {% trans "Save" %}
+                </button>
+
+                <hr >
+                <a href="{% url 'account_password' %}">Password Change</a>
+         </form>
+    </div>
+    </div>
+</div>
+{% endblock %}

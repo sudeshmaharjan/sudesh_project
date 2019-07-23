@@ -1,9 +1,9 @@
 from django.forms import ModelForm
-from .models import Employee, Experience, Projects
+from .models import Employee, Experience, Projects, Task
 from django.forms.models import inlineformset_factory
-from bootstrap_datepicker_plus import DatePickerInput
+from bootstrap_datepicker_plus import DatePickerInput, DateTimePickerInput
 from django import forms
-
+import datetime
 
 
 class EmployeeAddForm(ModelForm):
@@ -41,9 +41,18 @@ class AddProject(ModelForm):
     class Meta:
         model = Projects
         # fields = '__all__'
-        exclude = ('employee_id',)
+        exclude = ('project_begin',)
         widgets = {
             'project_begin': DatePickerInput(format='%Y-%m-%d'), # specify date-frmat
         }
 
 
+class AddTask(ModelForm):
+    class Meta:
+        model = Task
+        exclude = ('project',)
+        widgets = {
+            'start_dt': DateTimePickerInput(),
+            'end_dt': DateTimePickerInput(),
+        }
+        

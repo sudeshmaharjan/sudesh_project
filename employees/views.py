@@ -1,20 +1,21 @@
 from django.shortcuts import render, HttpResponseRedirect, HttpResponse
-from .models import Employee, Experience, Projects
+from .models import Employee, Experience, Projects, Task
 from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy, reverse
-from .forms import EmployeeAddForm, AddExperience, ExperienceFormSet, AddProject
+from .forms import EmployeeAddForm, AddExperience, ExperienceFormSet, AddProject, AddTask
 from django.views.generic.edit import DeleteView, FormView, UpdateView
 from django.db import transaction
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class EmployeeList(ListView):
+class EmployeeList(LoginRequiredMixin, ListView):
     model = Employee
     template_name = 'employees/list.html'
     context_object_name = 'employees_list'
 
 
-class EmployeeDetail(DetailView):
+class EmployeeDetail(LoginRequiredMixin, DetailView):
     model = Employee
     template_name = 'employees/details.html'
     context_object_name = 'employees_detail'
@@ -22,18 +23,24 @@ class EmployeeDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(EmployeeDetail, self).get_context_data(**kwargs)
         context['experience'] = Experience.objects.filter(employee_id=self.object.id)
-        context['projects'] = Projects.objects.filter(employee_id=self.object.id)
+        # context['projects'] = Projects.objects.filter(employee_id=self.object.id)
+        context['task'] = Task.objects.filter(employee_id=self.object.id)
         return context
 
 
-class EmployeeAdd(FormView):
+class EmployeeAdd(LoginRequiredMixin, FormView):
     model = Employee
     template_name = 'employees/new.html'
-    success_url = reverse_lazy('employees:employees_list')
+    success_url = reverse_lazy('employees:dashboard')
     form_class = EmployeeAddForm
+    
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeAdd, self).get_context_data(**kwargs)
+        context['add_employee_form'] = self.get_form()
+        return context
 
     def form_valid(self, form):
-        form.save()
+        add_employee_form = form.save()
         return super(EmployeeAdd, self).form_valid(form)
 
 
@@ -57,12 +64,6 @@ class EmployeeUpdate(UpdateView):
         context['experience'] = Experience.objects.filter(employee_id=self.object.id)
         return context
 
-    # def form_valid(self, form):
-    #     exp = form.save(commit=False)
-    #     exp.employee_id = Employee.objects.get(id=self.object.id)
-    #     exp.save()
-    #     return super(EmployeeUpdate, self).form_valid(form)
-
     def form_valid(self, form):
         context = self.get_context_data()
         titles = context['expform']
@@ -80,7 +81,6 @@ class EmployeeExperience(FormView):
     template_name = 'employees/experience.html'
     form_class = AddExperience
     
-
     def get_context_data(self, **kwargs):
         context = super(EmployeeExperience, self).get_context_data(**kwargs)
         context['experience'] = self.get_form()
@@ -96,33 +96,82 @@ class EmployeeExperience(FormView):
         return super(EmployeeExperience, self).form_valid(form)
 
 
-class EmployeeProjects(FormView):
+class ProjectList(LoginRequiredMixin, ListView):
+    model = Projects
+    template_name = 'employees/projectlist.html'
+    context_object_name = 'project_list'
+
+
+class Dashboard(ListView):
+    model = Employee
+    template_name = 'employees/dashboard.html'
+    context_object_name = 'dashboard'
+
+    def get_context_data(self, **kwargs):
+        context = super(Dashboard, self).get_context_data(**kwargs)
+        context['add_employee_form'] = EmployeeAddForm
+        context['project_form'] = AddProject
+        context['employees_list'] = Employee.objects.all()
+        context['project_list'] = Projects.objects.all()
+        return context
+
+
+class ProjectDetail(LoginRequiredMixin, DetailView):
+    model = Projects
+    template_name = 'employees/projectdetails.html'
+    context_object_name = 'project_detail'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectDetail, self).get_context_data(**kwargs)
+        context['task'] = Task.objects.filter(project=self.object.id)
+        return context
+
+
+class EmployeeProjects(LoginRequiredMixin, FormView):
     model = Projects
     template_name = 'employees/project.html'
+    success_url = reverse_lazy('employees:dashboard')
     form_class = AddProject
-
-    def get_success_url(self):
-        return reverse_lazy('employees:employees_detail', args=(self.kwargs['pk'],))
+    
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeProjects, self).get_context_data(**kwargs)
+        context['project_form'] = self.get_form()
+        return context
 
     def form_valid(self, form):
-        pro = form.save(commit=False)
-        pro.employee_id = Employee.objects.get(id=self.kwargs['pk'])
-        pro.save()
+        project_form = form.save()
         return super(EmployeeProjects, self).form_valid(form)
+
+
+class ProjectDelete(DeleteView):
+    model = Projects
+    template_name = 'employees/delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('employees:dashboard')
 
 
 class EmployeeDelete(DeleteView):
     model = Employee
-    success_url = reverse_lazy('employees:employees_list')
+    success_url = reverse_lazy('employees:dashboard')
     template_name = 'employees/remove.html'
 
 
-# class DownloadView(EmployeeDetail):
+class TaskList(FormView):
+    model = Task
+    template_name = 'employees/task.html'
+    form_class = AddTask
 
-#     def dispatch(self, request, *args, **kwargs):
-#         super(DownloadView, self).dispatch(request, *args, **kwargs)
-#         file_name = 'test.pdf'
-#         response = HttpResponse(content_type='text/pdf')
-#         response['X-Sendfile'] = str(settings.MEDIA_ROOT)
-#         response['Content-Disposition'] = 'attachment; filename=%s' % file_name
-#         return response
+    def get_context_data(self, **kwargs):
+        context = super(TaskList, self).get_context_data(**kwargs)
+        context['task'] = self.get_form()
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('employees:project_detail', args=(self.kwargs['pk'],))
+
+    def form_valid(self, form):
+        task = form.save(commit=False)
+        task.project = Projects.objects.get(id=self.kwargs['pk'])
+        task.save()
+        return super(TaskList, self).form_valid(form)

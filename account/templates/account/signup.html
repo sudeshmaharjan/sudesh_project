@@ -1,0 +1,68 @@
+{% extends "account/base.html" %}
+{% load i18n bootstrap4 staticfiles %}
+
+{% block head_title %}{% trans "Sign up" %}{% endblock %}
+
+{% block content %}
+<section class="g-bg-gray-light-v5">
+    <div class="container g-py-100">
+        <div class="row justify-content-center">
+            <div class="col-sm-8 col-lg-5 g-bg-white">
+                <div class="u-shadow-v21 rounded g-py-40">
+                    <header class="text-center mb-4">
+                        <h2 class="h2 g-color-black g-font-weight-600"> Signup</h2>
+                    </header>
+                    <form id="signup_form" class="g-py-15" method="post" action="" {% if stripe_public_key %} data-stripe-key="{{ stripe_public_key }}" {% endif %} novalidate>
+                        {% if current_plan.stripe_id == free_plan %}
+                        <div class="reg-header">
+                            <p>Already Signed Up? Click <a href="{% url 'account_login' %}" class="color-green">here</a> to login your account.</p>
+                        </div>
+                        {% endif %}
+                     
+
+                        {% csrf_token %}
+                        <input type="hidden" name="subscription_plan" value="{{ current_plan.stripe_id }}" />
+                        {% bootstrap_field form.username show_label=True %}
+                        <div class="mb-4">
+                            {% bootstrap_field form.email show_label=True %}
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {% bootstrap_field form.password show_label=True %}
+                            </div>
+                            <div class="col-sm-6">
+                                {% bootstrap_field form.password_confirm show_label=True %}
+                            </div>
+                        </div>
+
+                        {% if stripe_public_key %}
+                            <div class="g-mb-5 g-mt-40">
+                                <div class="u-divider u-divider-solid u-divider-center g-brd-gray-light-v3">
+                                    <img class=" u-divider__icon--indented u-divider-stripe" src="{% static 'img/powered_by_stripe.svg' %}" alt="Powered by Stripe">
+                                </div>
+                            </div>
+                            {% include "pinax/stripe/_card_form.html" with card_form=form %}
+                        {% endif %}
+                        
+                        {% if current_plan.stripe_id != free_plan and not current_plan.trial_period_days %}
+                            {% bootstrap_field form.coupon show_label=False %}
+                        {% endif %}
+
+                        <div class="g-mb-50">
+                            <button id="id_submit" class="btn btn-md btn-block u-btn-orange rounded g-py-13 btn-default orange" type="submit">Register</button>
+                        </div>
+                    </form>
+                    
+                   
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block external_script %}
+    {% include "pinax/stripe/_stripe_js.html" %}
+{% endblock external_script %}

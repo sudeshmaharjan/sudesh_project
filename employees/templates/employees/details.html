@@ -1,10 +1,9 @@
 {% extends 'employees/base.html' %} {% block content %}
-
-
 <div class="details">
   <div class="container">
     <div class="row">
       <div class="col-3">
+          
         {% if employees_detail.pic %}
         <img src="{{ employees_detail.pic.url }}" alt="profile">
         
@@ -49,24 +48,19 @@
           </tr>
           <tr>
             <td>
-              <button type="button" value="update" class="btn btn-secondary">
-                <a
+              <a
                   href="{% url 'employees:edit' employees_detail.id %}"
-                  class="link"
+                  class="link btn btn-secondary"
                   >Edit Profile</a
                 >
-              </button>
+              
+            </div>
             </td>
             <td></td>
             <td>
-              <button type="button" value="update" class="btn btn-danger">
-                <a
-                  href="{% url 'employees:remove' employees_detail.id %}"
-                  class="link"
-                  >Delete Profile</a
-                >
-              </button>
+              <a href="{% url 'account_logout' %}" class="btn btn-primary">Logout</a>
             </td>
+           
           </tr>
         </table>
       </div>
@@ -93,33 +87,33 @@
         </button> -->
       </div>
     </div>
-    <div class="row">
+   
+    <h1>Tasks</h1>    
+    <table class="mytable table">
+      <tr>
         
-          
-      <h1>Projects</h1>
-        <table class="mytable table">
-          <tr><th>Title</th><th>Client Name</th><th>Project Description</th><th>Start Date</th><th>Delete</th></tr>
+        <th>Project</th>
+        <th>Task</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Complete</th>
+      </tr>
+      {% for tsk in task %}
+      <tr>
+        <td>{{ tsk.project }}</td>
+        <td>{{ tsk.task_name }}</td>
+        <td>{{ tsk.start_dt }}</td>
+        <td>{{ tsk.end_dt }}</td>
+        <td>{% if tsk.is_completed %} 
+            <i class="fa fa-check" style="color: #05642c;"></i>
+            {% else %} 
+            <i class="fa fa-times" style="color: crimson;"></i>
+            {% endif %}
+        </td>
 
-          {% for project in projects %}
-            <tr>
-              <td>{{ project.project_title }}</td>
-              <td>{{ project.client_name }}</td>
-              <td>{% if project.project_description %} <a href="{{ project.project_description.url }}" target="_blank" class="link"> Project Description <i class="fa fa-file-pdf-o" style="font-size:20px;color:red"></i> </a>  {% else %} No Description Given {% endif %} </td>
-              <td>{{ project.project_begin }}</td>
-              <td><i class="fa fa-trash-o"></i></td>
-            </tr>
-          {% endfor %}
-        </table>
-
-          
-        <button type="button" value="update" class="btn btn-danger">
-            <a
-              href="{% url 'employees:projects' employees_detail.id %}"
-              class="link"
-              >Manage Projects</a
-            >
-          </button>
-    </div>
+      </tr>
+      {% endfor %}
+    </table>
   </div>
 </div>
 {% endblock %}

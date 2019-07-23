@@ -1,0 +1,18 @@
+{% extends "account/base.html" %} 
+{% load i18n bootstrap3 %} 
+
+{% block head_title %}{% trans "Confirm Email" %}{% endblock %} 
+
+{% block account_title %}{% trans "Confirm Email" %}{% endblock account_title %}
+
+{% block account_content %}
+    <p class="text-center">
+        {% blocktrans with email=confirmation.email_address.email %}Confirm email address <b>{{ email }}</b>?{% endblocktrans %}
+    </p>
+    <form method="POST" action="{% url 'account_confirm_email' key=confirmation.key %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data" {% endif %} class="reg-page" novalidate>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-md btn-block u-btn-orange rounded g-py-13">
+            {% trans "Confirm" %}
+        </button>
+    </form>
+{% endblock account_content %}

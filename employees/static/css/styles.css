@@ -5,11 +5,11 @@
 }
 
 .btn .link {
-  color: #ffeedd;
+  color: white;
 }
 
 .btn .link:hover {
-  color: #ffaafa;
+  color: whitesmoke;
 }
 
 .link:hover {
@@ -35,18 +35,17 @@ h1 {
 }
 
 .details {
-  background-image: url("./images/owl-517497_960_720.jpg");
+  background-color: orchid;
+  min-height: 100%;
 }
 
 .edit {
   background-image: url("./images/290302.jpg");
- 
   padding-top: 20px;
 }
 
 .new {
-  background-image: url("./images/fantasy-wallpapers-28113-6540419.jpg");
-  height: 100%;
+color: black;
 }
 
 table.mytable {
@@ -56,8 +55,6 @@ table.mytable {
 
 .details,
 .remove {
-  color: cornsilk;
-  height: 100%;
   font-size: 30px;
   text-align: center;
   padding: 50px;

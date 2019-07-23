@@ -1,0 +1,75 @@
+{% extends 'employees/base.html' %}
+{% block content %}
+{% load bootstrap4 %}
+
+<div class="list">
+  <div class="container">
+    <h1>Project List</h1>
+    <table class="table">
+      <tr>
+        <th>
+          Title
+        </th>
+        <th>Client</th>
+        <th>Description</th>
+        <th>Assigned</th>
+        <th>Delete</th>
+      </tr>
+      {% for projects in project_list %}
+      <tr>
+    <td><a href="{% url 'employees:project_detail' projects.id %}" class="link">{{ projects.project_title }}</a></td>
+    <td>{{ projects.client_name }}</td>
+    <td>{% if projects.project_description %} <a href="{{ projects.project_description.url }}" target="_blank" class="link"> Project Description <i class="fa fa-file-pdf-o" style="font-size:20px;color:red"></i> </a>  {% else %} No Description Given {% endif %} </td>
+    <td>{{ projects.project_begin }}</td>
+    <td>
+      <a data-toggle="modal" data-target="#{{ projects.id }}" class="btn btn-danger link">
+        <i class="fa fa-trash-o" style="font-size:24px"></i>Delete Project
+      </a>
+      <div class="modal" id="{{ projects.id }}">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title" style="color:brown;">
+                Delete Profile
+              </h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <form
+                method="post"
+                action="{% url 'employees:delete' projects.id %}"
+              >
+                {% csrf_token %}
+                <p style="color: brown;">
+                  Are you sure you want to delete all the Project  
+                  <spam>{{ projects.project_title }}</spam>?
+                </p>
+                <button class="btn btn-primary" data-dismiss="modal">
+                  Cancel
+                </button>
+                <input
+                  type="submit"
+                  value="Confirm"
+                  class="btn btn-danger"
+                />
+              </form>
+            </div>
+
+            <!-- Modal footer -->
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+    {% endfor %}
+    </table>
+   
+  </div>
+</div>
+
+{% endblock %}

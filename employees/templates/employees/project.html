@@ -1,18 +1,18 @@
 {% extends 'employees/base.html' %}
 {% load bootstrap4 %} 
- {% block content %}
- {% bootstrap_javascript jquery='full' %} 
- {{ form.media }}
- <div style="background-color: Red; height: 100%;">
+{% block content %}
+{% bootstrap_javascript jquery='full' %} 
+{{ form.media }}
+<div style="height: 100%;">
     <div class="container">
-<form action="#" method="POST" enctype="multipart/form-data">
-    {% csrf_token %} 
-    {% bootstrap_form form layout='horizontal' %}
+        <form action="{% url 'employees:projects' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %} 
+            {% bootstrap_form project_form layout='horizontal' %}
+            <input type="submit" value="submit" class="btn btn-secondary">
 
-
-    <input type="submit" value="submit">
-
- </form>   </div></div>
+        </form>   
+    </div>
+</div>
 {% endblock %}
 
 

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load i18n bootstrap3 %}
+
+{% block head_title %}{% trans "Sign up" %}{% endblock %}
+
+{% block content %}
+<div class="container content">
+    <div class="row">
+    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+        <form method="POST" action="{% url 'account_confirm_email' key=confirmation.key %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %} class="reg-page" novalidate>
+            <div class="reg-header">
+                <h2>{% trans "This site is in private beta" %}</h2>
+            </div>
+            {% csrf_token %}
+            <p>{% blocktrans %}If you have signup code you can enter it below.{% endblocktrans %}</p>
+            {% bootstrap_form form %}
+            <button type="submit" class="btn-u submit">
+                {% trans "Submit" %}
+            </button>
+        </form>
+    </div>
+    </div>
+</div>
+{% endblock %}

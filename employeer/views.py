@@ -20,4 +20,6 @@ class EmployeerUpdate(UpdateView):
     model = Employeer
     template_name = 'employeer/edit.html'
     fields = '__all__'
-    success_url = reverse_lazy('employeer:employeer')
+
+    def get_success_url(self):
+        return reverse_lazy('employeer:employeer_detail', args=(self.kwargs['pk'],))

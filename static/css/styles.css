@@ -1,5 +1,5 @@
 .link {
-  color: #789467;
+  color: white;
   font-family: cursive;
   text-decoration: none;
 }
@@ -13,7 +13,7 @@
 }
 
 .link:hover {
-  color: #7ec445;
+  color: white;
   text-decoration: none;
 }
 

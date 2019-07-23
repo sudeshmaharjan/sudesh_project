@@ -1,13 +1,22 @@
+
 <html>
   <head> </head>
   <body>
+    {% block details %}
     <div class="details">
       <div class="container">
         <table>
           <tr>
             <th>Name:</th>
             <td>
-              {{ employeer_detail.first_name }} {{ employeer_detail.last_name }}
+                {% if employeer_detail.middle_name %}
+                {{ employeer_detail.first_name }}
+                {{ employeer_detail.middle_name }}
+                {{ employeer_detail.last_name }}
+  
+                {% else %}  {{ employeer_detail.first_name }}
+                {{ employeer_detail.last_name }}
+                {% endif %}
             </td>
           </tr>
           <tr>
@@ -23,7 +32,18 @@
         <button>
           <a href="{% url 'employeer:edit' employeer_detail.id %}">Edit</a>
         </button>
+        <button>
+            <a href="{% url 'employees:employees_list' %}">Employees List</a>
+          </button>
+          <button>
+            <a href="{% url 'employees:project_list' %}">Project List</a>
+          </button>
+          <button>
+            <a href="{% url 'employees:dashboard' %}">Dashboard</a>
+          </button>
       </div>
     </div>
+    {% endblock %}
+    
   </body>
 </html>

@@ -3,22 +3,21 @@
   <body>
     <div class="list">
       <div class="container">
-        <h1>Employeer</h1>
-
-        <div>
           {% for employeer in employeer %}
 
-          <h3>
-            <a href=" {% url 'employeer:employeer_detail' employeer.id %} ">
-              {{ employeer.first_name }}
-            </a>
-          </h3>
+        <p style="color:black;">Welcome Mr <span>{{ employeer.first_name }}</span> to the ADMIN Page</p>
+        Click 
+        <a href=" {% url 'employeer:employeer_detail' employeer.id %} ">
+            here
+        </a>
+        to continue
+        <div>
 
-          <button>
-            <a href="{% url 'employees:employees_list' %}">Employees List</a>
-          </button>
+          
 
-          {% endfor %}
+          
+
+        {% endfor %}
         </div>
       </div>
     </div>

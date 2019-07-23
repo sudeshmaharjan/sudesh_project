@@ -1,0 +1,40 @@
+{% extends 'employees/base.html' %} {% block content %}
+
+<div class="row container">
+    <div class="col-3">
+        <h1>{{ project_detail.project_title }}</h1>
+        <h3>{{ project_detail.client_name }}</h3>
+        <h3>{% if project_detail.project_description %} <a href="{{ project_detail.project_description.url }}" target="_blank" class="link"> Project Description <i class="fa fa-file-pdf-o" style="font-size:20px;color:red"></i> </a>  {% else %} No Description Given {% endif %} </h3>
+        <h3>{{ project_detail.project_begin }}</h3>
+ 
+    </div>
+    <div class="col-9">
+        <table class="table">
+            <tr>
+                <td>Task</td>
+                <td>Start</td>
+                <td>End</td>
+                <td>Assigned</td>
+                <td>Complete</td>
+            </tr>
+            {% for tsk in task %}
+            <tr>
+
+                <td>{{ tsk.task_name }}</td>
+                <td>{{ tsk.start_dt }}</td>
+                <td>{{ tsk.end_dt }}</td>
+                <td>{{ tsk.employee_id }}</td>
+                <td>{% if tsk.is_completed %} 
+                    <i class="fa fa-check" style="color: #05642c;"></i>
+                    {% else %} 
+                    <i class="fa fa-times" style="color: crimson;"></i>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <a href="{% url 'employees:task' project_detail.id %}" class="btn btn-primary">Add Task</a>
+</div>
+{% endblock %}

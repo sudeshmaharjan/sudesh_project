@@ -43,13 +43,13 @@
         <tr>
         <th>Fields</th>
         <th>Years</th>
-        <th>Del</th>
+        <th>Delete</th>
         </tr>
         {% for field in expform %}
         <tr>
           <td>{% bootstrap_field field.experience_fields show_label=False %}</td>
           <td>{% bootstrap_field field.experience_years show_label=False %}</td>
-          <td><input type="checkbox" name="experience_set-{{ forloop.counter0 }}-DELETE" id="id_experience_set-{{ forloop.counter0 }}-DELETE"></td>
+          <td><input type="checkbox" name="experience_set-{{ forloop.counter0 }}-DELETE" id="id_experience_set-{{ forloop.counter0 }}-DELETE">Delete</td>
 
         </tr>
               

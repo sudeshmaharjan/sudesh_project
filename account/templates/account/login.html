@@ -1,0 +1,46 @@
+{% extends "account/base.html" %} 
+{% load i18n bootstrap4 %} 
+
+{% block head_title %}{% trans "Log in" %}{% endblock %} 
+
+{% block content %}
+<!-- Login -->
+<section class="g-bg-gray-light-v5">
+    <div class="container g-py-100">
+        <div class="row justify-content-center">
+            <div class="col-sm-8 col-lg-5 g-bg-white">
+                <div class="u-shadow-v21 rounded g-py-40">
+                    <header class="text-center mb-4">
+                        <h2 class="h2 g-color-black g-font-weight-600"> Login to your account or create one for free </h2>
+                    </header>
+                    <!-- Form -->
+                    {% bootstrap_form_errors form type='non_fields' %}
+                    <form method="POST" action="" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data" {% endif %} class="g-py-15" novalidate> {% csrf_token %}
+                        <div class="mb-4">
+                            {% bootstrap_field form.username %}
+                    
+                    
+                        </div>
+                        <div class="g-mb-35">
+                            {% bootstrap_field form.password %}
+                            <div class="row justify-content-between">
+                                <div class="col align-self-center text-right">
+                                    <a class="g-font-size-12" href="{% url 'account_password_reset' %}">Forgot password?</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                      <input type="submit" value="submit" class="btn btn-default orange ">
+                    </form>
+                    <!-- End Form -->
+                    <footer class="text-center">
+                        <p class="g-font-size-13 mb-0">Don't have an account? <a class="g-font-weight-600" href="{% url 'account_signup' %}">signup</a>
+                        </p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Login -->
+{% endblock %} 

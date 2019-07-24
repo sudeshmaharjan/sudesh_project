@@ -1,11 +1,12 @@
 from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from .models import Employee, Experience, Projects, Task
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.urls import reverse_lazy, reverse
 from .forms import EmployeeAddForm, AddExperience, ExperienceFormSet, AddProject, AddTask
 from django.views.generic.edit import DeleteView, FormView, UpdateView
 from django.db import transaction
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -25,6 +26,19 @@ class EmployeeDetail(LoginRequiredMixin, DetailView):
         context['experience'] = Experience.objects.filter(employee_id=self.object.id)
         # context['projects'] = Projects.objects.filter(employee_id=self.object.id)
         context['task'] = Task.objects.filter(employee_id=self.object.id)
+        return context
+
+
+class UserProfile(LoginRequiredMixin, TemplateView):
+    template_name = 'employees/profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserProfile, self).get_context_data(**kwargs)
+        employee = Employee.objects.get(user__username=self.request.user.username)
+        context['experience'] = Experience.objects.filter(employee_id=employee.id)
+        # context['projects'] = Projects.objects.filter(employee_id=self.object.id)
+        context['task'] = Task.objects.filter(employee_id=employee.id)
+        context['employees_detail'] = employee
         return context
 
 
@@ -175,3 +189,8 @@ class TaskList(FormView):
         task.project = Projects.objects.get(id=self.kwargs['pk'])
         task.save()
         return super(TaskList, self).form_valid(form)
+
+
+@login_required
+def profile(request):
+    return render(request, "employees/profile.html")

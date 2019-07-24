@@ -1,8 +1,10 @@
 from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from employees import views
 from .views import (
-    EmployeeList, EmployeeDetail, EmployeeUpdate, EmployeeAdd, EmployeeDelete,
+    EmployeeList, EmployeeDetail, EmployeeUpdate, EmployeeAdd, EmployeeDelete, UserProfile,
     EmployeeExperience, ProjectList, ProjectDetail, EmployeeProjects, ProjectDelete, Dashboard, TaskList
 )
 
@@ -10,7 +12,7 @@ from .views import (
 app_name = "employees"
 
 urlpatterns = [
-    url(r"^add/$", EmployeeAdd.as_view(), name='new'),
+    url(r"^add/$", EmployeeAdd.as_view(), name="new"),
     url(r"^$", EmployeeList.as_view(), name="employees_list"),
     url(r"^employee/(?P<pk>\d+)/$", EmployeeDetail.as_view(), name="employees_detail"),
     url(r"^employee/(?P<pk>\d+)/experience/$", EmployeeExperience.as_view(), name="experience"),
@@ -22,4 +24,5 @@ urlpatterns = [
     url(r"^projects/(?P<pk>\d+)/delete/$", ProjectDelete.as_view(), name="delete"),
     url(r"^projects/(?P<pk>\d+)/task/$", TaskList.as_view(), name="task"),
     url(r"^dashboard/$", Dashboard.as_view(), name="dashboard"),
+    url(r"^profile/$", UserProfile.as_view(), name="profile"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

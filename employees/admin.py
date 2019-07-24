@@ -1,6 +1,7 @@
 from django.contrib import admin
 from mptt.admin import MPTTModelAdmin
-from .models import Employee, Experience, Projects, Task
+from .models import Employee, Experience, Projects, Task, Worker
+from django.contrib.auth.models import User
 from django import forms
 
 
@@ -19,10 +20,10 @@ class TaskInline(admin.TabularInline):
 
 class ProjectAdmin(admin.ModelAdmin):
     model = Projects
-    fk_name = "employee_id"
     inlines = [
        TaskInline,
     ]
 
 admin.site.register(Employee, EmployeeAdmin)
-admin.site.register(Projects,ProjectAdmin)
+admin.site.register(Projects, ProjectAdmin)
+admin.site.register(Worker)

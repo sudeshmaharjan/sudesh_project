@@ -50,7 +50,7 @@ class AddProject(ModelForm):
 class AddTask(ModelForm):
     class Meta:
         model = Task
-        exclude = ('project',)
+        exclude = ('project', 'start_dt')
         widgets = {
             'start_dt': DateTimePickerInput(),
             'end_dt': DateTimePickerInput(),

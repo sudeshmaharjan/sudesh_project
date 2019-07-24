@@ -1,0 +1,139 @@
+{% extends 'employees/base.html' %} {% block content %}
+<div class="details">
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+          
+        {% if employees_detail.pic %}
+        <img src="{{ employees_detail.pic.url }}" alt="profile">
+        
+        {% endif %}
+      </div>
+      <div class="col-6">
+        <table class="mytable">
+          <tr>
+            <th>Name</th>
+            <td>:</td>
+            <td>
+              {% if employees_detail.middle_name %}
+              {{ employees_detail.first_name }}
+              {{ employees_detail.middle_name }}
+              {{ employees_detail.last_name }}
+
+              {% else %}  {{ employees_detail.first_name }}
+              {{ employees_detail.last_name }}
+
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>:</td>
+            <td>{{ employees_detail.email }}</td>
+          </tr>
+          <tr>
+            <th>Phone</th>
+            <td>:</td>
+            <td>{{ employees_detail.phone }}</td>
+          </tr>
+          <tr>
+            <th>Education</th>
+            <td>:</td>
+            <td>{{ employees_detail.qualification }}</td>
+          </tr>
+          <tr>
+            <th>About </th>
+            <td>:</td>
+            <td>{{ employees_detail.about|linebreaks }}</td>
+          </tr>
+          <tr>
+            <td>
+              <a
+                  href="{% url 'employees:edit' employees_detail.id %}"
+                  class="link btn btn-secondary"
+                  >Edit Profile</a
+                >
+              
+            </div>
+            </td>
+            <td></td>
+            <td>
+              <a href="{% url 'account_logout' %}" class="btn btn-primary">Logout</a>
+            </td>
+           
+          </tr>
+        </table>
+      </div>
+      <div class="col-3">
+        <table class="table mytable table-borderless">
+          <tr>
+            <th>Field</th>
+            <th>Years</th>
+          </tr>
+
+          {% for exp in experience %}
+          <tr>
+            <td>{{ exp.experience_fields }}</td>
+            <td>{{ exp.experience_years }}</td>
+          </tr>
+
+          {% endfor %}
+        </table>
+
+        <!-- <button type="button" value="update" class="btn btn-secondary">
+          <a href="{% url 'employees:experience' employees_detail.id %}" class="link"
+            >Update Experience</a
+          >
+        </button> -->
+      </div>
+    </div>
+   
+    <h1>Tasks</h1>    
+    <table class="mytable table">
+      <tr>
+        
+        <th>Project</th>
+        <th>Task</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Complete</th>
+      </tr>
+      {% for tsk in task %}
+      <tr>
+        <td>{{ tsk.project }}</td>
+        <td>{{ tsk.task_name }}</td>
+        <td>{{ tsk.start_dt }}</td>
+        <td>{{ tsk.end_dt }}</td>
+        <td><a href="" id='is_completed' name='complete' onclick="change()">{% if tsk.is_completed %} 
+            <i class="fa fa-check" style="color: #05642c;"></i>
+            {% else %} 
+            <i class="fa fa-times" style="color: crimson;"></i>
+            {% endif %}</a>
+        </td>
+
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<form name="test" method="post">
+    <input type="text" name="complete" value = "false"/>
+  </form>
+  
+  <div>
+    <button type="button" value="false" id="is_completed" onclick="change()">Save</button>
+  </div>
+
+<script>
+function change() {
+    var change = document.getElementById("is_completed");
+    if (change.value == "false") {
+      document.test.elements["complete"].value = "True";
+      //document.test.submit();
+    } else {
+        document.test.elements["complete"].value = "False"
+    }
+  }
+  </script>
+{% endblock %}

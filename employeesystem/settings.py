@@ -134,7 +134,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-ACCOUNT_LOGIN_REDIRECT_URL='/employees/'
+# LOGIN_REDIRECT_URL = '/employees/profile/'
+
+ACCOUNT_LOGIN_REDIRECT_URL='/employees/profile/'
 ACCOUNT_LOGOUT_REDIRECT_URL='/account/login/'
 ACCOUNT_SIGNUP_REDIRECT_URL= '/account/login/'
 ACCOUNT_EMAIL_UNIQUE = True

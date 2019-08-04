@@ -1,6 +1,6 @@
 from django.contrib import admin
 from mptt.admin import MPTTModelAdmin
-from .models import Employee, Experience, Projects, Task, Worker
+from .models import Employee, Experience, Projects, Task
 from django.contrib.auth.models import User
 from django import forms
 
@@ -26,4 +26,3 @@ class ProjectAdmin(admin.ModelAdmin):
 
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Projects, ProjectAdmin)
-admin.site.register(Worker)

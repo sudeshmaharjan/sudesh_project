@@ -2,15 +2,20 @@
 <div class="details">
   <div class="container">
     <div class="row">
-      <div class="col-3">
+      <div class="col-lg-3 col-md-6 col-xs-12">
           
         {% if employees_detail.pic %}
         <img src="{{ employees_detail.pic.url }}" alt="profile">
         
         {% endif %}
       </div>
-      <div class="col-6">
+      <div class="col-lg-6 col-md-6 col-xs-12">
         <table class="mytable">
+            <tr>
+                <th>username</th>
+                <th>:</th>
+                <td>{{ employees_detail.user.username }}</td>
+              </tr>
           <tr>
             <th>Name</th>
             <td>:</td>
@@ -46,25 +51,12 @@
             <td>:</td>
             <td>{{ employees_detail.about|linebreaks }}</td>
           </tr>
-          <tr>
-            <td>
-              <a
-                  href="{% url 'employees:edit' employees_detail.id %}"
-                  class="link btn btn-secondary"
-                  >Edit Profile</a
-                >
-              
-            </div>
-            </td>
-            <td></td>
-            <td>
-              <a href="{% url 'account_logout' %}" class="btn btn-primary">Logout</a>
-            </td>
-           
-          </tr>
+         
         </table>
+            <div class="text-left"> <a href="{% url 'employees:dashboard' %}" class="btn btn-success link" >Dashboard</a></div>
+         
       </div>
-      <div class="col-3">
+      <div class="col-3 mdhide">
         <table class="table mytable table-borderless">
           <tr>
             <th>Field</th>
@@ -88,22 +80,22 @@
       </div>
     </div>
    
-    <h1>Tasks</h1>    
+   
     <table class="mytable table">
       <tr>
         
         <th>Project</th>
         <th>Task</th>
-        <th>Start</th>
-        <th>End</th>
+        <th class="mdhide">Added</th>
+        <th class="smhide">Deadline</th>
         <th>Complete</th>
       </tr>
       {% for tsk in task %}
       <tr>
         <td>{{ tsk.project }}</td>
         <td>{{ tsk.task_name }}</td>
-        <td>{{ tsk.start_dt }}</td>
-        <td>{{ tsk.end_dt }}</td>
+        <td class="mdhide">{{ tsk.start_dt }}</td>
+        <td class="smhide">{{ tsk.end_dt }}</td>
         <td>{% if tsk.is_completed %} 
             <i class="fa fa-check" style="color: #05642c;"></i>
             {% else %} 

@@ -136,9 +136,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # LOGIN_REDIRECT_URL = '/employees/profile/'
 
-ACCOUNT_LOGIN_REDIRECT_URL='/employees/profile/'
+# ACCOUNT_LOGIN_REDIRECT_URL='/employees/profile/'
 ACCOUNT_LOGOUT_REDIRECT_URL='/account/login/'
-ACCOUNT_SIGNUP_REDIRECT_URL= '/account/login/'
+ACCOUNT_SIGNUP_REDIRECT_URL = '/employees/profile/'
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
 ACCOUNT_EMAIL_CONFIRMATION_EMAIL = False

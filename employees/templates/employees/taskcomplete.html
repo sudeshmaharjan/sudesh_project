@@ -1,0 +1,16 @@
+{% extends 'employees/base.html' %} {% block content %} {% load bootstrap4 %}
+{% bootstrap_javascript jquery='full' %} 
+{{ form.media }}
+<form action="#" method="POST">
+        {% csrf_token %} 
+    <div class="hide">
+        {% bootstrap_field form.task_name show_label=False %}
+        {% bootstrap_field form.employee_id show_label=False %}
+        {% bootstrap_field form.end_dt show_label=False %}
+    </div>
+        mark completed if the task is completed
+        {% bootstrap_field form.is_completed show_label=False %}
+    <input type="submit" value="submit">
+</form>
+{% endblock %}
+

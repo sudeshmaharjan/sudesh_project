@@ -11,17 +11,17 @@
           Title
         </th>
         <th>Client</th>
-        <th>Description</th>
+        <th class="smhide">Description</th>
         <th>Assigned</th>
-        <th>Delete</th>
+        <th class="smhide">Delete</th>
       </tr>
       {% for projects in project_list %}
       <tr>
     <td><a href="{% url 'employees:project_detail' projects.id %}" class="link">{{ projects.project_title }}</a></td>
     <td>{{ projects.client_name }}</td>
-    <td>{% if projects.project_description %} <a href="{{ projects.project_description.url }}" target="_blank" class="link"> Project Description <i class="fa fa-file-pdf-o" style="font-size:20px;color:red"></i> </a>  {% else %} No Description Given {% endif %} </td>
+    <td class="smhide">{% if projects.project_description %} <a href="{{ projects.project_description.url }}" target="_blank" class="link"> Project Description <i class="fa fa-file-pdf-o" style="font-size:20px;color:red"></i> </a>  {% else %} No Description Given {% endif %} </td>
     <td>{{ projects.project_begin }}</td>
-    <td>
+    <td class="smhide">
       <a data-toggle="modal" data-target="#{{ projects.id }}" class="btn btn-danger link">
         <i class="fa fa-trash-o" style="font-size:24px"></i>Delete Project
       </a>

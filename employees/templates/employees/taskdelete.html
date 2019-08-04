@@ -1,0 +1,11 @@
+{% extends 'employees/base.html' %} {% block content %} {% load bootstrap4 %}
+<div class="remove">
+  <form method="post">
+    {% csrf_token %}
+    <h1>Warning</h1>
+    <p>Are you sure you want to delete <spam>"{{ object.task_name }}"</spam> Task?</p>
+    <input type="submit" value="Confirm" class="btn btn-danger" />
+  
+  </form>
+</div>
+{% endblock %}

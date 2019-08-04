@@ -1,40 +1,125 @@
 {% extends 'employees/base.html' %} {% block content %}
-
-<div class="row container">
-    <div class="col-3">
+<div class="projects">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-lg-3">
         <h1>{{ project_detail.project_title }}</h1>
-        <h3>{{ project_detail.client_name }}</h3>
-        <h3>{% if project_detail.project_description %} <a href="{{ project_detail.project_description.url }}" target="_blank" class="link"> Project Description <i class="fa fa-file-pdf-o" style="font-size:20px;color:red"></i> </a>  {% else %} No Description Given {% endif %} </h3>
-        <h3>{{ project_detail.project_begin }}</h3>
- 
-    </div>
-    <div class="col-9">
-        <table class="table">
+        <h4>Client : {{ project_detail.client_name }}</h4>
+
+        <h4>
+          {% if project_detail.project_description %}<a
+            href="{{ project_detail.project_description.url }}"
+            target="_blank"
+            class="link"
+            >Description
+            <i class="fa fa-file-pdf-o" style="font-size:20px;color:red"></i>
+          </a>
+          {% else %} No Description Given {% endif %}
+        </h4>
+        <h5>Assigned : {{ project_detail.project_begin }}</h5>
+        <table>
+          <tr>
+            <td><a href="{% url 'employees:dashboard' %}" class="btn btn-success link">Dashboard</a></td>
+            <td class="smhide"><a href="{% url 'employees:task' project_detail.id %}" class="btn btn-primary" >Add Task</a></td>
+          </tr>
+        </table>
+        
+        
+      </div>
+      <div class="col-xs-12 col-lg-9">
+        <div style="height: 600px; overflow-y: scroll;">
+          <table class="table">
             <tr>
-                <td>Task</td>
-                <td>Added</td>
-                <td>Deadline</td>
-                <td>Assigned</td>
-                <td>Complete</td>
+              <td>Task</td>
+              <td class="smhide">Added</td>
+              <td>Deadline</td>
+              <td>Assigned</td>
+              <td>Complete</td>
+              <td class="smhide">Edit</td>
+              <td class="smhide">Delete</td>
             </tr>
             {% for tsk in task %}
             <tr>
+              <td>{{ tsk.task_name }}</td>
+              <td class="smhide">{{ tsk.start_dt }}</td>
+              <td>{{ tsk.end_dt }}</td>
+              <td>{{ tsk.employee_id }}</td>
+              <td>
+                {% if tsk.is_completed %}
+                <i class="fa fa-check" style="color: #05642c;"></i>
+                {% else %}
+                <i class="fa fa-times" style="color: crimson;"></i>
+                {% endif %}
+              </td>
+              <td class="smhide">
+                <a
+                  href="{% url 'employees:taskedit' project_detail.id tsk.id %}"
+                  class="btn"
+                  ><i
+                    class="fa fa-edit"
+                    style="color: #05642c; font-size:24px"
+                  ></i
+                ></a>
+              </td>
+              <td class="smhide">
+                <a data-toggle="modal" data-target="#{{ tsk.id }}" class="btn">
+                  <i
+                    class="fa fa-trash-o"
+                    style="color: red; font-size:24px"
+                  ></i>
+                </a>
 
-                <td>{{ tsk.task_name }}</td>
-                <td>{{ tsk.start_dt }}</td>
-                <td>{{ tsk.end_dt }}</td>
-                <td>{{ tsk.employee_id }}</td>
-                <td>{% if tsk.is_completed %} 
-                    <i class="fa fa-check" style="color: #05642c;"></i>
-                    {% else %} 
-                    <i class="fa fa-times" style="color: crimson;"></i>
-                    {% endif %}
-                </td>
+                <div class="modal" id="{{ tsk.id }}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                        <h4 class="modal-title" style="color:brown;">
+                          Delete task
+                        </h4>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                        >
+                          &times;
+                        </button>
+                      </div>
 
+                      <!-- Modal body -->
+                      <div class="modal-body">
+                        <form
+                          method="post"
+                          action="{% url 'employees:taskdel' project_detail.id tsk.id %}"
+                        >
+                          {% csrf_token %}
+                          <p style="color: brown;">
+                            Are you sure you want to delete all the records of
+                            <spam>{{ tsk.task_name }}</spam
+                            >?
+                          </p>
+                          <button class="btn btn-primary" data-dismiss="modal">
+                            Cancel
+                          </button>
+                          <input
+                            type="submit"
+                            value="Confirm"
+                            class="btn btn-danger"
+                          />
+                        </form>
+                      </div>
+
+                      <!-- Modal footer -->
+                    </div>
+                  </div>
+                </div>
+              </td>
             </tr>
             {% endfor %}
-        </table>
+          </table>
+        </div>
+      </div>
     </div>
-    <a href="{% url 'employees:task' project_detail.id %}" class="btn btn-primary">Add Task</a>
+  </div>
 </div>
 {% endblock %}

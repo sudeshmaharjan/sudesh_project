@@ -1,16 +1,17 @@
-{% extends 'employees/base.html' %} {% block content %}
+{% extends 'employees/base.html' %} {% block content %} {% load bootstrap4 %}
 <div class="list">
   <div class="container">
     <h1>Employees List</h1>
-
     <div>
       <table class="table">
         <tr>
           <th>Name</th>
           <th>Email</th>
-          <th>Delete</th>
+          <th class="smhide">Delete</th>
         </tr>
         {% for employees in employees_list %}
+
+        
         <tr>
           <td>
               <a
@@ -27,12 +28,19 @@
 
                 {% endif %}</a
               >
+              
           </td>
           <td>{{ employees.email }}</td>
-          <td>
-            <a data-toggle="modal" data-target="#{{ employees.id }}" class="btn btn-danger link">
-              <i class="fa fa-trash-o" style="font-size:24px"></i>Delete Profile
-            </a>
+          <td class="smhide">
+              {% if not employees.user.is_superuser %}
+              <a data-toggle="modal" data-target="#{{ employees.id }}" class="btn btn-danger link">
+                  <i class="fa fa-trash-o" style="font-size:24px"></i>Delete Profile
+                </a>
+                {% else %}
+                <p>Superuser cannot be delleted</p>
+              {% endif %}
+      
+            
             <div class="modal" id="{{ employees.id }}">
               <div class="modal-dialog">
                 <div class="modal-content">

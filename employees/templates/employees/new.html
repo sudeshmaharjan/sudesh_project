@@ -4,34 +4,39 @@
     <form action="{% url 'employees:new' %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <table>
+          <tr>
+              <th>User</th><th>:</th>
+              <th>{% bootstrap_field add_employee_form.user show_label=False %}</th>
+            </tr>
         <tr>
-          <th>Name :</th>
+          <th>Name</th><th>:</th>
           <td>{% bootstrap_field add_employee_form.first_name show_label=False %}</td>
           <td>{% bootstrap_field add_employee_form.middle_name show_label=False %}</td>
           <td>{% bootstrap_field add_employee_form.last_name show_label=False %}</td>
         </tr>
         <tr>
-          <th>Email :</th>
+          <th>Email</th><th>:</th>
           <td colspan="3">{% bootstrap_field add_employee_form.email show_label=False %}</td>
         </tr>
         <tr>
-          <th>Phone No. :</th>
+          <th>Phone No.</th><th>:</th>
           <td colspan="3">{% bootstrap_field add_employee_form.phone show_label=False %}</td>
         </tr>
         <tr>
-          <th>Qualifications :</th>
+          <th>Qualifications</th><th>:</th>
           <td colspan="3">
             {% bootstrap_field add_employee_form.qualification show_label=False %}
           </td>
         </tr>
         <tr>
-          <th>About :</th>
+          <th>About</th><th>:</th>
           <td colspan="3">{% bootstrap_field add_employee_form.about show_label=False %}</td>
         </tr>
         <tr>
-          <th>Image:</th>
+          <th>Image</th><th>:</th>
           <td>{% bootstrap_field add_employee_form.pic show_label=False %}</td>
         </tr>
+        
       </table>
 
       <input type="submit" value="Submit" class="btn btn-success" />

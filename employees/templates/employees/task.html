@@ -1,9 +1,29 @@
-{% extends 'employees/base.html' %} {% block content %} {% load bootstrap4 %}
-{% bootstrap_javascript jquery='full' %} 
+{% extends 'employees/base.html' %} {% block content %} {% load bootstrap4 %} 
+{% bootstrap_javascript jquery='full' %}
 {{ form.media }}
-<form action="#" method="POST">
-        {% csrf_token %} 
-        {% bootstrap_form form layout='horizontal' %}
-    <input type="submit" value="submit">
-</form>
+<div class="container">
+    <h1>New Task</h1>
+  <form action="#" method="POST">
+    {% csrf_token %} 
+    <table class="table">
+        <tr>
+            <th>Deadline</th>
+            <td>{% bootstrap_field form.end_dt show_label=False %}</td>
+        </tr>
+        <tr>
+            <th>Task</th>
+            <td>{% bootstrap_field form.task_name show_label=False %}</td>
+        </tr>
+        <tr>
+            <th>Employee</th>
+            <td>{% bootstrap_field form.employee_id show_label=False %}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{% bootstrap_field form.is_completed show_label=False %}</td>
+        </tr>
+    </table>
+    <input class="btn btn-success" type="submit" value="submit" />
+  </form>
+</div>
 {% endblock %}

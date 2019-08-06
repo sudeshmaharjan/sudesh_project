@@ -1,5 +1,5 @@
 {% load account_tags %}
-<p style="float:right;"><i class="fa fa-user"></i> {% user_display request.user %}</p>
+
 {% load static %}
 <html>
 <head>
@@ -36,6 +36,8 @@
    
 </head>
 <body>
+    <div class="container">
+    <hr>
     <header>
         <div class="container">
            
@@ -47,11 +49,12 @@
     </header>
     <section>
         <div class="container">
+                <p style="float:right;"><i class="fa fa-user"></i> {% user_display request.user %}</p>
             <div class="col-md-3"></div>
             <div>
                 {% block content %}
                 <div >
-                    <div>
+                    <div class="text-center">
                         <h3>
                             {% block account_title %}
                                 <!-- head block -->
@@ -75,7 +78,7 @@
     <div class="container">
         <p class="text-center">Employee System</p>
         <hr>
-        <p class="text-center"><a href="#">Terms and Condition</a>  |   <a href="#">Privacy Policy</a></p>
+        <p class="text-center"></p>
     </div>
 </footer>
 
@@ -84,7 +87,7 @@
         $(".wrapper").addClass("g-bg-gray-light-v5 g-pt-30")
     </script>
 {% endblock %}
-
+</div>
 </body>
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="

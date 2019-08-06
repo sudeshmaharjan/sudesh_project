@@ -2,6 +2,9 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
 import datetime
+from django import forms
+import pytz
+
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -32,6 +35,7 @@ class Projects(models.Model):
     client_name = models.CharField(max_length=255)
     project_description = models.FileField(blank=True, null=True, upload_to="projects", validators=[FileExtensionValidator(allowed_extensions=['pdf'])])
     project_begin = models.DateField(default=datetime.date.today)
+    git = models.URLField(max_length=255, blank=True, null=True)
 
     class Meta:
         db_table = 'employees_projects'
@@ -49,3 +53,10 @@ class Task(models.Model):
     is_completed = models.BooleanField(default=False)
 
 
+    def clean(self):
+
+        if self.end_dt:
+            
+            if self.end_dt < self.start_dt:
+                raise forms.ValidationError("Deadline cannot be before starting")
+    

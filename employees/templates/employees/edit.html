@@ -5,39 +5,39 @@
     <form action="" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="row"><div class="col-12 col-lg-8">
-      <table class="mytable">
+      <table class="mytable table table-borderless">
         <tr>
-          <th>Username</th><th>:</th>
+          <th>Username</th>
           <th><h3>{{ user.get_username }}</h3>
           <td class="hide">{% bootstrap_field form.user show_label=False %}</td>
           </th>
         </tr>
         <tr>
-          <th>Name </th><th>:</th>
+          <th>Name </th>
           <td>{% bootstrap_field form.first_name show_label=False %}</td>
           <td>{% bootstrap_field form.middle_name show_label=False %}</td>
           <td>{% bootstrap_field form.last_name show_label=False %}</td>
         </tr>
         <tr>
-          <th>Email </th><th>:</th>
+          <th>Email </th>
           <td colspan="3">{% bootstrap_field form.email show_label=False %}</td>
         </tr>
         <tr>
-          <th>Phone No. </th><th>:</th>
+          <th>Phone No. </th>
           <td colspan="3">{% bootstrap_field form.phone show_label=False %}</td>
         </tr>
         <tr>
-          <th>Education </th><th>:</th>
+          <th>Education </th>
           <td colspan="3">
             {% bootstrap_field form.qualification show_label=False %}
           </td>
         </tr>
         <tr>
-          <th>About </th><th>:</th>
+          <th>About </th>
           <td colspan="3">{% bootstrap_field form.about show_label=False %}</td>
         </tr>
         <tr>
-          <th>Image</th><th>:</th>
+          <th>Image</th>
           <td>{% bootstrap_field form.pic show_label=False %}</td>
         </tr>
       </table>
@@ -46,7 +46,7 @@
      <div class="hide">{{ expform.as_p }}</div>
 
       
-      <table class="mytable">
+      <table class="mytable table-borderless">
         <tr>
         <th>Fields</th>
         <th>Years</th>

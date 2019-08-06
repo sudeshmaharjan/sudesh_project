@@ -3,11 +3,11 @@
   <div class="container">
     <form action="{% url 'employees:new' %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-      <table>
-          <tr>
-              <th>User</th><th>:</th>
-              <th>{% bootstrap_field add_employee_form.user show_label=False %}</th>
-            </tr>
+      <table class="table table-borderless">
+        <tr>
+          <th>User</th><th>:</th>
+          <th>{% bootstrap_field add_employee_form.user show_label=False %}</th>
+        </tr>
         <tr>
           <th>Name</th><th>:</th>
           <td>{% bootstrap_field add_employee_form.first_name show_label=False %}</td>

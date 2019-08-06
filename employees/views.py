@@ -183,6 +183,23 @@ class EmployeeProjects(PermissionRequiredMixin, LoginRequiredMixin, FormView):
         return super(EmployeeProjects, self).form_valid(form)
 
 
+class ProjectEdit(UpdateView):
+    model = Projects
+    template_name = 'employees/projectedit.html'
+    form_class = AddProject
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectEdit, self).get_context_data(**kwargs)
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('employees:project_detail', args=(self.kwargs['pk'],))
+
+    def form_valid(self, form):
+        form.save()
+        return super(ProjectEdit, self).form_valid(form)
+
+
 class ProjectDelete(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Projects
     template_name = 'employees/delete.html'

@@ -5,25 +5,29 @@
 {{ form.media }}
 <div style="height: 100%;">
     <div class="container">
-        <form action="{% url 'employees:projects' %}" method="POST" enctype="multipart/form-data">
+        <form action="#" method="POST" enctype="multipart/form-data">
             {% csrf_token %} 
             <table class="table table-borderless">
                 <tr>
                     <th>Title</th>
-                    <td colspan="2">{% bootstrap_field project_form.project_title show_label=False %}</td>
+                    <th>:</th>
+                    <td colspan="2">{% bootstrap_field form.project_title show_label=False %}</td>
                 </tr>
                 <tr>
                     <th>Client</th>
-                    <td colspan="2">{% bootstrap_field project_form.client_name show_label=False %}</td>
+                    <th>:</th>
+                    <td colspan="2">{% bootstrap_field form.client_name show_label=False %}</td>
                 </tr>
                 <tr>
                     <th>Descripton</th>
-                    <td>{% bootstrap_field project_form.project_description show_label=False %}</td>
+                    <th>:</th>
+                    <td>{% bootstrap_field form.project_description show_label=False %}</td>
                     <td>(pdf only)</td>
                 </tr>
                 <tr>
                     <th>Git Link</th>
-                    <td colspan="2">{% bootstrap_field project_form.git show_label=False %}</td>
+                    <th>:</th>
+                    <td colspan="2">{% bootstrap_field form.git show_label=False %}</td>
                 </tr>
             </table>
             <input type="submit" value="submit" class="btn btn-secondary">

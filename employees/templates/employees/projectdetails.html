@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-lg-3">
-        <h1>{{ project_detail.project_title }}</h1>
+        <h1><a href="{% url 'employees:projectedit' project_detail.id %}" class="link">{{ project_detail.project_title }}</a></h1>
         <h4>Client : {{ project_detail.client_name }}</h4>
 
         <h4>
@@ -16,6 +16,9 @@
           </a>
           {% else %} No Description Given {% endif %}
         </h4>
+        {% if project_detail.git %}
+        <h5><a href="{{ project_detail.git }}" class="link">{{ project_detail.git }}</a></h5>
+        {% endif %}
         <h5>Assigned : {{ project_detail.project_begin }}</h5>
         <table>
           <tr>

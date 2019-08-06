@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 from employees import views
 from .views import (
     EmployeeList, EmployeeDetail, EmployeeUpdate, EmployeeAdd, EmployeeDelete, UserProfile, TaskEdit, TaskDelete, IsComplete,
-    EmployeeExperience, ProjectList, ProjectDetail, EmployeeProjects, ProjectDelete, Dashboard, TaskList, TaskComplete
+    EmployeeExperience, ProjectList, ProjectDetail, EmployeeProjects, ProjectDelete, Dashboard, TaskList, TaskComplete, ProjectEdit
 )
 
 
@@ -23,6 +23,7 @@ urlpatterns = [
     url(r"^projects/(?P<pk>\d+)/$", ProjectDetail.as_view(), name="project_detail"),
     url(r"^projects/(?P<pk>\d+)/delete/$", ProjectDelete.as_view(), name="delete"),
     url(r"^projects/(?P<pk>\d+)/task/$", TaskList.as_view(), name="task"),
+    url(r"^projects/(?P<pk>\d+)/edit/$", ProjectEdit.as_view(), name="projectedit"),
     url(r"^projects/(?P<project>\d+)/task/(?P<pk>\d+)/edit/$", TaskEdit.as_view(), name="taskedit"),
     url(r"^projects/(?P<project>\d+)/task/(?P<pk>\d+)/delete/$", TaskDelete.as_view(), name="taskdel"),
     url(r"^profile/task/(?P<pk>\d+)/complete/$", TaskComplete.as_view(), name="taskcomplete"),

@@ -23,7 +23,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     url(r'^employeer/', include('employeer.urls')),
     url(r'^employees/', include('employees.urls')),
-    url(r"^", include("account.urls")),
+    url(r"^account/", include("account.urls")),
     url(r'^admin/', admin.site.urls),
     url(r'^_nested_admin/', include('nested_admin.urls')),
 ]

@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from employees import views
 from .views import (
-    EmployeeList, EmployeeDetail, EmployeeUpdate, EmployeeAdd, EmployeeDelete, UserProfile, TaskEdit, TaskDelete, IsComplete,
+    EmployeeList, EmployeeDetail, EmployeeUpdate, EmployeeAdd, EmployeeDelete, UserProfile, TaskEdit, TaskDelete, IsComplete, InviteEmployee,
     EmployeeExperience, ProjectList, ProjectDetail, EmployeeProjects, ProjectDelete, Dashboard, TaskList, TaskComplete, ProjectEdit
 )
 
@@ -30,4 +30,5 @@ urlpatterns = [
     url(r"^task/(?P<pk>\d+)/iscomplete/$", IsComplete.as_view(), name="iscomplete"),
     url(r"^dashboard/$", Dashboard.as_view(), name="dashboard"),
     url(r"^profile/$", UserProfile.as_view(), name="profile"),
+    url(r"^employees/invite/$", InviteEmployee.as_view(), name="invite")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

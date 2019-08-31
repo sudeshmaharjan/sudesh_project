@@ -1,0 +1,11 @@
+{% extends 'employees/base.html' %}
+{% load bootstrap4 %} 
+{% block content %}
+
+<form action="{% url 'employees:invite' %}" method="POST">
+    {% csrf_token %} 
+    {% bootstrap_form form layout='horizontal' %}
+    <input type="submit" value="submit">
+</form>
+
+{% endblock %}

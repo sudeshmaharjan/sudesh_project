@@ -5,13 +5,15 @@ import datetime
 from django import forms
 import pytz
 
+class Invite(models.Model):
+    email = models.EmailField()
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     middle_name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255)
-    email = models.EmailField( unique=True)
+    email = models.EmailField(unique=True)
     phone = models.BigIntegerField()
     qualification = models.CharField(max_length=255)
     about = models.TextField(max_length=500, blank=True, default='N/A')

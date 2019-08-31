@@ -1,10 +1,13 @@
 from django.forms import ModelForm
-from .models import Employee, Experience, Projects, Task
+from .models import Employee, Experience, Projects, Task, Invite
 from django.forms.models import inlineformset_factory
 from bootstrap_datepicker_plus import DatePickerInput, DateTimePickerInput
 from django import forms
 import datetime
 
+class InviteForm(ModelForm):
+    model = Invite
+    fields = '__all__'
 
 class EmployeeAddForm(ModelForm):
     class Meta:

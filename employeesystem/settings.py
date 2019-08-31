@@ -139,11 +139,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # ACCOUNT_LOGIN_REDIRECT_URL='/employees/profile/'
 ACCOUNT_LOGOUT_REDIRECT_URL='/account/login/'
-ACCOUNT_SIGNUP_REDIRECT_URL = '/employees/profile/'
+ACCOUNT_SIGNUP_REDIRECT_URL = '/employees/add/'
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
 ACCOUNT_EMAIL_CONFIRMATION_EMAIL = False
 LOGIN_URL = '/account/login/'
+
+EMAIL_HOST= 'smtp.gmail.com'
+EMAIL_HOST_USER= 'kalu1baucha@gmail.com'
+EMAIL_HOST_PASSWORD= '$antraSi1234'
+EMAIL_USE_TLS= True
+EMAIL_PORT= 587
 
 SITE_ID = 1
 

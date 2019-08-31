@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect, HttpRespons
 from .models import Employee, Experience, Projects, Task
 from django.views.generic import ListView, DetailView, TemplateView
 from django.urls import reverse_lazy, reverse
-from .forms import EmployeeAddForm, AddExperience, ExperienceFormSet, AddProject, AddTask
+from .forms import EmployeeAddForm, AddExperience, ExperienceFormSet, AddProject, AddTask, InviteForm
 from django.views.generic.edit import DeleteView, FormView, UpdateView
 from django.db import transaction
 from django.conf import settings
@@ -60,12 +60,11 @@ class UserProfile(LoginRequiredMixin, TemplateView):
             return
         
 
-class EmployeeAdd(PermissionRequiredMixin, LoginRequiredMixin, FormView):
+class EmployeeAdd(LoginRequiredMixin, FormView):
     model = Employee
     template_name = 'employees/new.html'
-    success_url = reverse_lazy('employees:dashboard')
+    success_url = reverse_lazy('employees:profile')
     form_class = EmployeeAddForm
-    permission_required = ('user.is_superuser',)
     
     def get_context_data(self, **kwargs):
         context = super(EmployeeAdd, self).get_context_data(**kwargs)
@@ -287,11 +286,21 @@ class IsComplete(TemplateView):
         return HttpResponseRedirect(reverse_lazy('employees:profile'))
         
 
+class InviteEmployee(TemplateView):
+    template_name = 'employees/invite.html'
+    form_class = InviteForm
 
+    def get_context_data(self, **kwargs):
+        context = super(InviteEmployee, self).get_context_data(**kwargs)
+        return context
 
-
-
-
-# @login_required
-# def profile(request):
-#     return render(request, "employees/profile.html")
+    def form_valid(self, form):
+        if form.is_valid():
+            send_to = form.save(commit=False)
+            send_to.save()
+            subject = 'Ontrat Services Pvt. Ltd.'
+            message = 'Welcome to Ontreat Services Pvt. Ltd. Please signup and create your profile to start working with our team. Thank You!!'
+            send = [send_to.email]
+            from_email = 'kalu1baucha@gmail.com'
+            send_mail(subject, message, from_email, send)
+        return super().form_valid(form)

@@ -2,6 +2,7 @@
 <div class="list">
   <div class="container">
     <h1>Employees List</h1>
+    <a class="btn btn-success" href="{% url 'employees:invite' %}">Invite</a>
     <div>
       <table class="table">
         <tr>
@@ -37,7 +38,7 @@
                   <i class="fa fa-trash-o" style="font-size:24px"></i>Delete Profile
                 </a>
                 {% else %}
-                <p>Superuser cannot be delleted</p>
+                <p>Superuser cannot be deleted</p>
               {% endif %}
       
             
